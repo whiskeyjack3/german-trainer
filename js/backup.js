@@ -16,7 +16,7 @@ export async function buildBackup(now = Date.now()) {
   return {
     schemaVersion: 1,
     exportedAt: new Date(now).toISOString(),
-    appVersion: "p5-2026-11-12",
+    appVersion: "p6-2026-11-12-2",
     settings: getSettings(),
     progress,
     sessions,

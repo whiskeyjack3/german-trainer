@@ -1,6 +1,6 @@
 import { app } from "../app.js";
 import { buildBackup, backupFilename, restoreBackup } from "../backup.js";
-import { count, estimateStorage, requestPersistence } from "../db.js";
+import { count, estimateStorage, requestPersistence, replaceStores } from "../db.js";
 import { clearReviewNotes, parseFindings, reviewCounts, saveReviewNotes } from "../findings.js";
 import { copyText, downloadText, reviewMarkdown, reviewerName, speakingPrompt, writingPrompt } from "../mercury.js";
 import { importPackFile } from "../pack-import.js";
@@ -201,12 +201,28 @@ function backupSection() {
     }
     file.value = "";
   });
+  const resetButton = el("button", { type: "button", class: "btn btn-danger" }, "Reset progress");
+  resetButton.addEventListener("click", async () => {
+    if (!window.confirm("Reset all vocabulary and exam progress plus session history? Your packs, audio and settings stay. This cannot be undone.")) return;
+    resetButton.disabled = true;
+    try {
+      await replaceStores({ progress: [], sessions: [] });
+      await loadState();
+      toast("Progress reset. Content packs are untouched.", "success");
+      app.render();
+    } catch (error) {
+      resetButton.disabled = false;
+      toast(error.message || "Could not reset progress", "error");
+    }
+  });
   return el(
     "section",
     { class: "card" },
     el("h2", { class: "section-title", text: "Backup & restore" }),
     el("p", { class: "muted", text: "Progress, sessions and settings only. Content comes back by re-importing packs; progress is never wiped by a content import." }),
     el("div", { class: "button-row" }, exportButton, label, file),
+    el("p", { class: "muted small", text: "Reset clears vocabulary and exam progress plus session history. Packs, audio and settings stay." }),
+    el("div", { class: "button-row" }, resetButton),
   );
 }
 

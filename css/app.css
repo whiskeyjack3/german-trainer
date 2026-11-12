@@ -169,6 +169,7 @@ main { display: block; max-width: 480px; margin: 0 auto; padding: 1rem; outline:
 .btn-primary { background: var(--accent); color: var(--accent-contrast); }
 .hero .btn-primary { background: var(--accent-contrast); color: var(--accent); }
 .btn-secondary { background: transparent; color: var(--text); border-color: var(--line); }
+.btn-danger { background: transparent; color: var(--bad); border-color: var(--bad); }
 .btn-quiet { background: transparent; color: var(--text); border-color: transparent; padding-inline: 0.55rem; }
 .btn-small { min-height: 44px; padding: 0.35rem 0.7rem; font-size: 0.9rem; }
 .button-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }

@@ -1,5 +1,5 @@
 // Versioned app-shell cache. Content and audio live in IndexedDB, never here.
-const VERSION = "p6-2026-11-12";
+const VERSION = "p6-2026-11-12-2";
 const CACHE = `german-trainer-${VERSION}`;
 
 const ASSETS = [
